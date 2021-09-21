@@ -88,7 +88,7 @@ module Bunny
     attr_reader :logger
     # @return [Integer] Timeout for blocking protocol operations (queue.declare, queue.bind, etc), in milliseconds. Default is 4000.
     attr_reader :continuation_timeout
-
+    attr_reader :connection_name
 
     # @param [String, Hash] connection_string_or_opts Connection string or a hash of connection options
     # @param [Hash] optz Extra options not related to connection
@@ -172,6 +172,7 @@ module Bunny
 
       @client_properties   = opts[:properties] || DEFAULT_CLIENT_PROPERTIES
       @mechanism           = opts.fetch(:auth_mechanism, "PLAIN")
+      @connection_name = @client_properties.fetch(:connection_name, nil)
       @credentials_encoder = credentials_encoder_for(@mechanism)
       @locale              = @opts.fetch(:locale, DEFAULT_LOCALE)
 
